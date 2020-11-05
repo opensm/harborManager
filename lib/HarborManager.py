@@ -49,7 +49,7 @@ class HarborManager:
             for v in self.get_repo(project_id=project['project_id']):
                 if v['tags_count'] <= save_count:
                     continue
-                if not v['repo_name'].startswith('malltest'):
+                if not v['repo_name'].startswith('images'):
                     continue
                 self.get_remove_tags(
                     repo_name=v['repo_name'],
