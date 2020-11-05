@@ -97,13 +97,13 @@ class HarborManager:
                 RecodeLog.info(msg="删除镜像:{0},tag:{1},失败！原因：{2}".format(tag['repo_name'], tag['tag'], result))
 
 
-h = HarborManager()
-h.login(user=HARBOR_USER, password=HARBOR_PASSWORD, host=HARBOR_URL)
-
-
 def run():
+    h = HarborManager()
+    h.login(user=HARBOR_USER, password=HARBOR_PASSWORD, host=HARBOR_URL)
     h.get_remove_repo()
 
 
 def tag_list():
+    h = HarborManager()
+    h.login(user=HARBOR_USER, password=HARBOR_PASSWORD, host=HARBOR_URL)
     h.get_all_tags()
