@@ -63,7 +63,7 @@ class HarborManager:
         """
         print("+++++++++++++++++++repo:{0}+++++++++++++++++++".format(repo_name))
         for tag in self.client.get_repository_tags(repo_name=repo_name):
-            print("tag_name:{0},created:{0}".format(tag['name'], tag['created']))
+            print("tag_name:{0},created:{1}".format(tag['name'], tag['created']))
         print("-------------------repo:{0}-------------------".format(repo_name))
 
     def get_all_tags(self):
