@@ -56,6 +56,28 @@ class HarborManager:
                     remove_count=int(v['tags_count']) - save_count
                 )
 
+    def get_repo_tags(self, repo_name):
+        """
+        :param repo_name:
+        :return:
+        """
+        print("+++++++++++++++++++repo:{0}+++++++++++++++++++".format(repo_name))
+        for tag in self.client.get_repository_tags(repo_name=repo_name):
+            print("tag_name:{0},created:{0}".format(tag['name'], tag['created']))
+        print("-------------------repo:{0}-------------------".format(repo_name))
+
+    def get_all_tags(self):
+        """
+        :return:
+        """
+        projects = self.get_project()
+        if not projects:
+            RecodeLog.error('没有获取到项目列表!')
+            raise Exception("没有获取到项目列表！")
+        for project in projects:
+            for v in self.get_repo(project_id=project['project_id']):
+                self.get_repo_tags(repo_name=v['repo_name'])
+
     def get_remove_tags(self, repo_name, remove_count):
         """
         :param repo_name:
@@ -75,9 +97,13 @@ class HarborManager:
                 RecodeLog.info(msg="删除镜像:{0},tag:{1},失败！原因：{2}".format(tag['repo_name'], tag['tag'], result))
 
 
+h = HarborManager()
+h.login(user=HARBOR_USER, password=HARBOR_PASSWORD, host=HARBOR_URL)
+
+
 def run():
-    h = HarborManager()
-    h.login(user=HARBOR_USER, password=HARBOR_PASSWORD, host=HARBOR_URL)
-    # h.get_project()
     h.get_remove_repo()
-    # h.get_tags(repo_name='malltest/mall-task')
+
+
+def tag_list():
+    h.get_all_tags()
